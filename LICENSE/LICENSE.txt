@@ -1,4 +1,4 @@
-The object detector model, located at Source/BreakfastFinder/ObjectDetector.mlmodel, is based on arXiv’s article YOLOv3: An Incremental Improvement, published in 2018, by Redmon, Joseph and Farhadi, Ali. See https://pjreddie.com/darknet/yolo/ for additional information.
+The object detector model, located at BreakfastFinder/ObjectDetector.mlmodel, is based on arXiv’s article, "YOLO9000: Better, Faster, Stronger" by Joseph Redmon, Ali Farhadi (CVPR 2017).
 
 The following license applies to the source code, and other elements of this package:
 

@@ -73,10 +73,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureConnection?.isEnabled = true
         do {
             try  videoDevice!.lockForConfiguration()
-            let format = videoDevice?.activeFormat
-            let fdesc = format!.formatDescription
-            bufferSize.width = CGFloat(fdesc.videoDimensions.width)
-            bufferSize.height = CGFloat(fdesc.videoDimensions.height)
+            let dimensions = CMVideoFormatDescriptionGetDimensions((videoDevice?.activeFormat.formatDescription)!)
+            bufferSize.width = CGFloat(dimensions.width)
+            bufferSize.height = CGFloat(dimensions.height)
             videoDevice!.unlockForConfiguration()
         } catch {
             print(error)

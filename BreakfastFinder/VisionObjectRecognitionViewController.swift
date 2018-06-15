@@ -64,7 +64,7 @@ class VisionObjectRecognitionViewController: ViewController {
     }
     
     override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = sampleBuffer.imageBuffer else {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
         
