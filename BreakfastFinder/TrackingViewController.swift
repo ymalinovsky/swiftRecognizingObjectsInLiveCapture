@@ -7,24 +7,51 @@
 //
 
 import UIKit
+import AVFoundation
+import Vision
 
 class TrackingViewController: UIViewController {
 
+    var videoAsset: AVAsset!
+    
+    @IBOutlet weak var previewView: UIImageView!
+    
+    private var workQueue = DispatchQueue(label: "TrackingViewController", qos: .userInitiated)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        previewView.contentMode = .scaleAspectFit
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        self.startRenderVideo()
     }
-    */
-
+    
+    func startRenderVideo() {
+        workQueue.async {
+            guard let videoReader = VideoReader(videoAsset: self.videoAsset) else { return }
+            
+            while true {
+                guard let imageBuffer = videoReader.nextFrame() else { break }
+                
+                let ciimage: CIImage = CIImage(cvPixelBuffer: imageBuffer)
+                
+                let image: UIImage = self.convert(cmage: ciimage)
+                
+                DispatchQueue.main.async {
+                    self.previewView.image = image
+                }
+            }
+        }
+    }
+    
+    func convert(cmage:CIImage) -> UIImage {
+        let context:CIContext = CIContext.init(options: nil)
+        let cgImage:CGImage = context.createCGImage(cmage, from: cmage.extent)!
+        let image:UIImage = UIImage.init(cgImage: cgImage)
+        
+        return image
+    }
+    
 }

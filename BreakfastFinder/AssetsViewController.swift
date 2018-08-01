@@ -98,7 +98,7 @@ class AssetsViewController: UICollectionViewController {
             guard let trackingController = segue.destination as? TrackingViewController else {
                 fatalError("Unexpected destination view controller type")
             }
-//            trackingController.videoAsset = avAsset
+            trackingController.videoAsset = avAsset
         }
     }
     
