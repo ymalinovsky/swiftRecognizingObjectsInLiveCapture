@@ -31,6 +31,9 @@ class VisionObjectRecognitionViewController: ViewController {
                     }
                 })
             })
+            
+            objectRecognition.usesCPUOnly = true
+            
             self.requests = [objectRecognition]
         } catch let error as NSError {
             print("Model loading went wrong: \(error)")

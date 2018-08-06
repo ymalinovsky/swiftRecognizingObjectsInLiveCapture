@@ -32,7 +32,7 @@ class TrackingViewController: UIViewController {
         self.updateLayerGeometry()
         self.setupCoreMLRequest()
         
-        previewView.contentMode = .scaleAspectFit
+        previewView.contentMode = .center
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -136,6 +136,9 @@ class TrackingViewController: UIViewController {
                     }
                 })
             })
+            
+            coreMLRequest.usesCPUOnly = true
+            
         }
     }
     
