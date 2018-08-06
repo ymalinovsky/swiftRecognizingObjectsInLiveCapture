@@ -18,6 +18,8 @@ class TrackingViewController: UIViewController {
     
     private var workQueue = DispatchQueue(label: "TrackingViewController", qos: .userInitiated)
     
+    var imageBufferSize: CGSize = .zero
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,10 +38,16 @@ class TrackingViewController: UIViewController {
             
             while true {
                 guard let imageBuffer = videoReader.nextFrame() else { break }
+        
+                let ciImage = CIImage(cvPixelBuffer: imageBuffer)
+                let imageSize = ciImage.extent.size
+                
+                self.imageBufferSize.width = imageSize.width
+                self.imageBufferSize.height = imageSize.height
                 
                 self.classifyFrame(image: imageBuffer)
                 
-                let image: UIImage = self.convert(cmage: CIImage(cvPixelBuffer: imageBuffer))
+                let image: UIImage = self.convert(ciImage: ciImage)
                 
                 DispatchQueue.main.async {
                     self.previewView.image = image
@@ -48,9 +56,9 @@ class TrackingViewController: UIViewController {
         }
     }
     
-    func convert(cmage:CIImage) -> UIImage {
+    func convert(ciImage:CIImage) -> UIImage {
         let context:CIContext = CIContext.init(options: nil)
-        let cgImage:CGImage = context.createCGImage(cmage, from: cmage.extent)!
+        let cgImage:CGImage = context.createCGImage(ciImage, from: ciImage.extent)!
         let image:UIImage = UIImage.init(cgImage: cgImage)
         
         return image
@@ -68,7 +76,9 @@ class TrackingViewController: UIViewController {
                 }
                 
                 for result in results {
-                    print(result.labels.first!)
+//                    print(result.labels.first!)
+                    let objectBounds = VNImageRectForNormalizedRect(result.boundingBox, Int(self.imageBufferSize.width), Int(self.imageBufferSize.height))
+                    print(objectBounds);
                 }
             })
         }
