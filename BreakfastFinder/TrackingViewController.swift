@@ -21,6 +21,8 @@ class TrackingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setupCoreMLRequest()
+        
         previewView.contentMode = .scaleAspectFit
     }
     
@@ -35,9 +37,9 @@ class TrackingViewController: UIViewController {
             while true {
                 guard let imageBuffer = videoReader.nextFrame() else { break }
                 
-                let ciimage: CIImage = CIImage(cvPixelBuffer: imageBuffer)
+                self.classifyFrame(image: imageBuffer)
                 
-                let image: UIImage = self.convert(cmage: ciimage)
+                let image: UIImage = self.convert(cmage: CIImage(cvPixelBuffer: imageBuffer))
                 
                 DispatchQueue.main.async {
                     self.previewView.image = image
@@ -52,6 +54,34 @@ class TrackingViewController: UIViewController {
         let image:UIImage = UIImage.init(cgImage: cgImage)
         
         return image
+    }
+
+    // CoreML logic
+    
+    var coreMLRequest: VNRequest!
+    
+    func setupCoreMLRequest() {
+        if let model = try? VNCoreMLModel(for: ObjectDetector().model) {
+            coreMLRequest = VNCoreMLRequest(model: model, completionHandler: { (request, error) in
+                guard let results = request.results as? [VNRecognizedObjectObservation] else {
+                    fatalError("error")
+                }
+                
+                for result in results {
+                    print(result.labels.first!)
+                }
+            })
+        }
+    }
+    
+    func classifyFrame(image: CVPixelBuffer) {
+        let handler = VNImageRequestHandler(cvPixelBuffer: image, orientation: .up)
+        
+        do {
+            try handler.perform([coreMLRequest])
+        } catch {
+            fatalError("error")
+        }
     }
     
 }
