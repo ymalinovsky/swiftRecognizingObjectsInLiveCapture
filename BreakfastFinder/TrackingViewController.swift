@@ -124,7 +124,7 @@ class TrackingViewController: UIViewController {
 
     // CoreML logic
     
-    var coreMLRequest: VNRequest!
+    var coreMLRequest: VNCoreMLRequest!
     
     func setupCoreMLRequest() {
         if let model = try? VNCoreMLModel(for: ObjectDetector().model) {
@@ -139,6 +139,7 @@ class TrackingViewController: UIViewController {
             
             coreMLRequest.usesCPUOnly = true
             
+            coreMLRequest.imageCropAndScaleOption = .centerCrop
         }
     }
     
