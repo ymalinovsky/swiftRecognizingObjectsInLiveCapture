@@ -39,8 +39,8 @@ class TrackingViewController: UIViewController {
     
     func getImageBufferSize() -> CGSize {
         if let image = previewView.image {
-            let widthRatio = previewView.bounds.size.width / image.size.width
-            let heightRatio = previewView.bounds.size.height / image.size.height
+            let widthRatio = previewView.frame.size.width / image.size.width
+            let heightRatio = previewView.frame.size.height / image.size.height
             let scale = min(widthRatio, heightRatio)
             let imageWidth = scale * image.size.width
             let imageHeight = scale * image.size.height
@@ -184,6 +184,8 @@ class TrackingViewController: UIViewController {
                 shapeLayer.addSublayer(textLayer)
                 detectionOverlay.addSublayer(shapeLayer)
             }
+            
+            break
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -192,7 +194,7 @@ class TrackingViewController: UIViewController {
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"
-        detectionOverlay.bounds = self.previewView.bounds
+        detectionOverlay.bounds = self.previewView.frame
         detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
         rootLayer.addSublayer(detectionOverlay)
     }
