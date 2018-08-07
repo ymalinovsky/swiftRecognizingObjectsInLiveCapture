@@ -34,7 +34,7 @@ class TrackingViewController: UIViewController {
         self.updateLayerGeometry()
         self.setupCoreMLRequest()
         
-        previewView.contentMode = .scaleAspectFill
+        previewView.contentMode = .scaleAspectFit
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -137,7 +137,7 @@ class TrackingViewController: UIViewController {
             
             coreMLRequest.usesCPUOnly = true
             
-            coreMLRequest.imageCropAndScaleOption = .scaleFill
+            coreMLRequest.imageCropAndScaleOption = .centerCrop
         }
     }
     
