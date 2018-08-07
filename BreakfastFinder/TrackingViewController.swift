@@ -21,12 +21,8 @@ class TrackingViewController: UIViewController {
     
     private var workQueue = DispatchQueue(label: "TrackingViewController", qos: .userInitiated)
     
-    var imageBufferSize: CGSize = .zero
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageBufferSize = previewView.bounds.size
 
         rootLayer = previewView.layer
         
@@ -39,6 +35,20 @@ class TrackingViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.startRenderVideo()
+    }
+    
+    func getImageBufferSize() -> CGSize {
+        if let image = previewView.image {
+            let widthRatio = previewView.bounds.size.width / image.size.width
+            let heightRatio = previewView.bounds.size.height / image.size.height
+            let scale = min(widthRatio, heightRatio)
+            let imageWidth = scale * image.size.width
+            let imageHeight = scale * image.size.height
+            
+            return CGSize(width: imageWidth, height: imageHeight)
+        }
+
+        return CGSize.zero
     }
     
     func startRenderVideo() {
@@ -73,8 +83,8 @@ class TrackingViewController: UIViewController {
         let bounds = rootLayer.bounds
         var scale: CGFloat
         
-        let xScale: CGFloat = bounds.size.width / imageBufferSize.height
-        let yScale: CGFloat = bounds.size.height / imageBufferSize.width
+        let xScale: CGFloat = bounds.size.width / getImageBufferSize().height
+        let yScale: CGFloat = bounds.size.height / getImageBufferSize().width
         
         scale = fmax(xScale, yScale)
         if scale.isInfinite {
@@ -159,17 +169,21 @@ class TrackingViewController: UIViewController {
             guard let objectObservation = observation as? VNRecognizedObjectObservation else {
                 continue
             }
+            
             // Select only the label with the highest confidence.
             let topLabelObservation = objectObservation.labels[0]
-            let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(imageBufferSize.width), Int(imageBufferSize.height))
             
-            let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
-            
-            let textLayer = self.createTextSubLayerInBounds(objectBounds,
-                                                            identifier: topLabelObservation.identifier,
-                                                            confidence: topLabelObservation.confidence)
-            shapeLayer.addSublayer(textLayer)
-            detectionOverlay.addSublayer(shapeLayer)
+            if topLabelObservation.confidence > 0.90 {
+                let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(getImageBufferSize().width), Int(getImageBufferSize().height))
+                
+                let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
+                
+                let textLayer = self.createTextSubLayerInBounds(objectBounds,
+                                                                identifier: topLabelObservation.identifier,
+                                                                confidence: topLabelObservation.confidence)
+                shapeLayer.addSublayer(textLayer)
+                detectionOverlay.addSublayer(shapeLayer)
+            }
         }
         self.updateLayerGeometry()
         CATransaction.commit()
@@ -178,10 +192,7 @@ class TrackingViewController: UIViewController {
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"
-        detectionOverlay.bounds = CGRect(x: 0.0,
-                                         y: 0.0,
-                                         width: imageBufferSize.width,
-                                         height: imageBufferSize.height)
+        detectionOverlay.bounds = self.previewView.bounds
         detectionOverlay.position = CGPoint(x: rootLayer.bounds.midX, y: rootLayer.bounds.midY)
         rootLayer.addSublayer(detectionOverlay)
     }
