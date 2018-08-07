@@ -25,6 +25,8 @@ class TrackingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageBufferSize = previewView.bounds.size
 
         rootLayer = previewView.layer
         
@@ -32,7 +34,7 @@ class TrackingViewController: UIViewController {
         self.updateLayerGeometry()
         self.setupCoreMLRequest()
         
-        previewView.contentMode = .center
+        previewView.contentMode = .scaleAspectFill
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,10 +49,6 @@ class TrackingViewController: UIViewController {
                 guard let imageBuffer = videoReader.nextFrame() else { break }
         
                 let ciImage = CIImage(cvPixelBuffer: imageBuffer)
-                let imageSize = ciImage.extent.size
-                
-                self.imageBufferSize.width = imageSize.width
-                self.imageBufferSize.height = imageSize.height
                 
                 self.classifyFrame(image: imageBuffer)
                 
@@ -139,7 +137,7 @@ class TrackingViewController: UIViewController {
             
             coreMLRequest.usesCPUOnly = true
             
-            coreMLRequest.imageCropAndScaleOption = .centerCrop
+            coreMLRequest.imageCropAndScaleOption = .scaleFill
         }
     }
     
