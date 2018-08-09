@@ -135,7 +135,7 @@ class TrackingViewController: UIViewController {
     var coreMLRequest: VNCoreMLRequest!
     
     func setupCoreMLRequest() {
-        if let model = try? VNCoreMLModel(for: ObjectDetector().model) {
+        if let model = try? VNCoreMLModel(for: ImageClassifier().model) {
             coreMLRequest = VNCoreMLRequest(model: model, completionHandler: { (request, error) in
                 DispatchQueue.main.async(execute: {
                     // perform all the UI updates on the main queue
