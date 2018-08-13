@@ -10,7 +10,9 @@
 		9E1A14C72111D4F0000B5947 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1A14C62111D4F0000B5947 /* AssetsViewController.swift */; };
 		9E1A14C92111D7B4000B5947 /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1A14C82111D7B4000B5947 /* TrackingViewController.swift */; };
 		9E1A14CB2111E92B000B5947 /* VideoReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1A14CA2111E92B000B5947 /* VideoReader.swift */; };
-		9E889834211C41DE00F88EC1 /* ImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9E889833211C41DE00F88EC1 /* ImageClassifier.mlmodel */; };
+		AC1FEFA821218F550066FAF4 /* MyCustomObjectDetector_v5.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = AC1FEFA721218F550066FAF4 /* MyCustomObjectDetector_v5.mlmodel */; };
+		AC208AFF211C509F00B8E367 /* ImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = AC208AFE211C509E00B8E367 /* ImageClassifier.mlmodel */; };
+		ACE5BF5021217E0C000EE3B1 /* MyCustomObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = ACE5BF4F21217E0B000EE3B1 /* MyCustomObjectDetector.mlmodel */; };
 		FA4750CA20BF3F48003E19ED /* Breakfast Finder Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */; };
 		FA68723920AA028000D82F25 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FA68723820AA028000D82F25 /* ObjectDetector.mlmodel */; };
 		FAB417F62099308400494E9C /* VisionObjectRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB417F52099308400494E9C /* VisionObjectRecognitionViewController.swift */; };
@@ -27,7 +29,9 @@
 		9E1A14C62111D4F0000B5947 /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		9E1A14C82111D7B4000B5947 /* TrackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
 		9E1A14CA2111E92B000B5947 /* VideoReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoReader.swift; sourceTree = "<group>"; };
-		9E889833211C41DE00F88EC1 /* ImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ImageClassifier.mlmodel; sourceTree = "<group>"; };
+		AC1FEFA721218F550066FAF4 /* MyCustomObjectDetector_v5.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MyCustomObjectDetector_v5.mlmodel; sourceTree = "<group>"; };
+		AC208AFE211C509E00B8E367 /* ImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ImageClassifier.mlmodel; sourceTree = "<group>"; };
+		ACE5BF4F21217E0B000EE3B1 /* MyCustomObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MyCustomObjectDetector.mlmodel; sourceTree = "<group>"; };
 		FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Breakfast Finder Logo.png"; sourceTree = SOURCE_ROOT; };
 		FA68723820AA028000D82F25 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
 		FAB417F52099308400494E9C /* VisionObjectRecognitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionObjectRecognitionViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +99,9 @@
 				FAD500A51ED668B60074D713 /* Assets.xcassets */,
 				FAD500A71ED668B60074D713 /* LaunchScreen.storyboard */,
 				FA68723820AA028000D82F25 /* ObjectDetector.mlmodel */,
-				9E889833211C41DE00F88EC1 /* ImageClassifier.mlmodel */,
+				AC208AFE211C509E00B8E367 /* ImageClassifier.mlmodel */,
+				ACE5BF4F21217E0B000EE3B1 /* MyCustomObjectDetector.mlmodel */,
+				AC1FEFA721218F550066FAF4 /* MyCustomObjectDetector_v5.mlmodel */,
 				FA4750C920BF3F48003E19ED /* Breakfast Finder Logo.png */,
 				FAD500AA1ED668B60074D713 /* Info.plist */,
 				9E1A14C62111D4F0000B5947 /* AssetsViewController.swift */,
@@ -182,10 +188,12 @@
 				FAD500A11ED668B60074D713 /* ViewController.swift in Sources */,
 				FAD5009F1ED668B60074D713 /* AppDelegate.swift in Sources */,
 				9E1A14C92111D7B4000B5947 /* TrackingViewController.swift in Sources */,
+				ACE5BF5021217E0C000EE3B1 /* MyCustomObjectDetector.mlmodel in Sources */,
 				9E1A14C72111D4F0000B5947 /* AssetsViewController.swift in Sources */,
 				FA68723920AA028000D82F25 /* ObjectDetector.mlmodel in Sources */,
+				AC1FEFA821218F550066FAF4 /* MyCustomObjectDetector_v5.mlmodel in Sources */,
 				9E1A14CB2111E92B000B5947 /* VideoReader.swift in Sources */,
-				9E889834211C41DE00F88EC1 /* ImageClassifier.mlmodel in Sources */,
+				AC208AFF211C509F00B8E367 /* ImageClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PSLRJ6EG6T;
 				INFOPLIST_FILE = BreakfastFinder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BreakfastFinder${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -354,6 +363,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PSLRJ6EG6T;
 				INFOPLIST_FILE = BreakfastFinder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BreakfastFinder${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
